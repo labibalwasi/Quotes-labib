@@ -1,37 +1,131 @@
-## Welcome to GitHub Pages
+const browser = await puppeteer.launch({
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+});
+sudo sysctl -w kernel.unprivileged_userns_clone=1
+# cd to the downloaded instance
+cd <project-dir-path>/node_modules/puppeteer/.local-chromium/linux-<revision>/chrome-linux/
+sudo chown root:root chrome_sandbox
+sudo chmod 4755 chrome_sandbox
+# copy sandbox executable to a shared location
+sudo cp -p chrome_sandbox /usr/local/sbin/chrome-devel-sandbox
+# export CHROME_DEVEL_SANDBOX env variable
+export CHROME_DEVEL_SANDBOX=/usr/local/sbin/chrome-devel-sandbox
+export CHROME_DEVEL_SANDBOX=/usr/local/sbin/chrome-devel-sandbox
+bahasa : free
+layanan : xvfb
 
-You can use the [editor on GitHub](https://github.com/labibalwasi/Quotes-labib/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+# Di seluruh file ini, versi `node_js` berikut digunakan:
+#
+# - free: '10' # Versi pemeliharaan LTS.
+# - free: '12' # Versi LTS aktif mayor tertua.
+# - free: '14' # Versi LTS aktif utama terbaru.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+pekerjaan :
+  termasuk :
+    - os : ' osx '
+      nama : ' Tes unit: macOS/Chromium '
+      node_js : ' 10 '  # Versi pemeliharaan LTS.
+      osx_image : xcode11.4
+      env :
+        - CHROMIUM = benar
+      sebelum_instal :
+        - PUPPETEER_PRODUCT=instal firefox npm
+      naskah :
+        - ls .local-chromium .local-firefox
+        - npm jalankan tsc
+        - npm menjalankan unit
 
-### Markdown
+    - os : ' jendela '
+      nama : ' Tes unit: Windows/Chromium '
+      node_js : ' 10 '  # Versi pemeliharaan LTS.
+      env :
+        - CHROMIUM = benar
+      sebelum_instal :
+        - PUPPETEER_PRODUCT=instal firefox npm
+      naskah :
+        - ls .local-chromium .local-firefox
+        - npm jalankan tsc
+        - travis_retry npm menjalankan unit
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+    # Modul fs.promises Node <10.17 bersifat eksperimental dan tidak berperilaku seperti
+    # diharapkan. Masalah ini telah diperbaiki di Node 10.19, tetapi kami menjalankan unit test
+    # hingga 10.15 untuk memastikan kami tidak menyebabkan regresi apa pun saat menggunakan
+    # fs.janji. Lihat https://github.com/puppeteer/puppeteer/issues/6548 untuk
+    # contoh.
+    - node_js : ' 10.15.0 '
+      nama : ' Node 10.15 Tes unit: Linux/Chromium '
+      env :
+        - CHROMIUM = benar
+      sebelum_instal :
+        - PUPPETEER_PRODUCT=instal firefox npm
+      naskah :
+        - npm menjalankan unit
 
-```markdown
-Syntax highlighted code block
+    - node_js : ' 10 '  # Versi pemeliharaan LTS.
+      name : ' Tes unit [dengan cakupan]: Linux/Chromium '
+      env :
+        - CHROMIUM = benar
+      sebelum_instal :
+        - PUPPETEER_PRODUCT=instal firefox npm
+      naskah :
+        - travis_retry npm jalankan unit-with-coverage
+        - npm jalankan assert-unit-coverage
 
-# Header 1
-## Header 2
-### Header 3
+    - node_js : ' 12 '  # Versi LTS aktif mayor tertua.
+      nama : ' Tes unit [Node 12]: Linux/Chromium '
+      env :
+        - CHROMIUM = benar
+      sebelum_instal :
+        - PUPPETEER_PRODUCT=instal firefox npm
+      naskah :
+        - npm menjalankan unit
 
-- Bulleted
-- List
+    - node_js : ' 14 '  # Versi LTS aktif utama terbaru.
+      nama : ' Tes unit [Node 14]: Linux/Chromium '
+      env :
+        - CHROMIUM = benar
+      sebelum_instal :
+        - PUPPETEER_PRODUCT=instal firefox npm
+      naskah :
+        - npm menjalankan unit
 
-1. Numbered
-2. List
+    - node_js : ' 12 '  # Versi LTS aktif mayor tertua.
+      nama : ' Tes browser: Linux/Chromium '
+      tambahan :
+        krom : stabil
+      env :
+        - CHROMIUM = benar
+      naskah :
+        - npm menjalankan browser uji
 
-**Bold** and _Italic_ and `Code` text
+    # Bot ini menjalankan semua pemeriksaan tambahan yang bukan merupakan pengujian unit Dalang utama.
+    - node_js : ' 10 '  # Versi pemeliharaan LTS.
+      nama : ' Tes tambahan: Linux/Chromium '
+      env :
+        - CHROMIUM = benar
+      naskah :
+        - npm menjalankan lint
+        # Pastikan kami dapat membuat dokumen baru tanpa kesalahan
+        - npm jalankan generate-docs
+        - npm jalankan pastikan-benar-devtools-protokol-revisi
 
-[Link](url) and ![Image](src)
-```
+    # Bot ini berjalan secara terpisah saat mengubah package.json untuk menguji dalang-core
+    # dan kami tidak ingin itu bocor ke bot lain dan menyebabkan masalah.
+    - node_js : ' 10 '  # Versi pemeliharaan LTS.
+      name : ' Uji bundling dan instal paket '
+      env :
+        - CHROMIUM = benar
+      naskah :
+        - npm jalankan uji-instal
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+    - node_js : ' 10 '  # Versi pemeliharaan LTS.
+      nama : ' Uji coba unit: Linux/Firefox '
+      env :
+        - FIREFOX = true
+      sebelum_instal :
+        - PUPPETEER_PRODUCT=instal firefox npm
+      naskah :
+        - npm menjalankan funit
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/labibalwasi/Quotes-labib/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+pemberitahuan :
+  email : real
